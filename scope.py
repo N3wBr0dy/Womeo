@@ -6,20 +6,20 @@ import numpy as np
 
 # Initialize the Display
 disp = ST7789.ST7789(
+    width=320,
+    height=240,
     port=0,
     cs=1,
     dc=9,
     backlight=13,
     spi_speed_hz=10000000,
-    width=320,
-    height=240
 )
 disp.begin()
 
 # Initialize the PiCamera
 camera = picamera.PiCamera()
 camera.resolution = (320, 240)
-camera.framerate = 24
+camera.framerate = 30
 
 # Start the preview and display it on the Display
 camera.start_preview()
