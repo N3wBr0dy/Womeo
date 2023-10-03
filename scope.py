@@ -1,7 +1,6 @@
 import picamera
 import ST7789
 import numpy as np
-import cv2
 import time
 from PIL import Image
 from PIL import ImageOps
@@ -16,8 +15,8 @@ camera.resolution = (320, 240)
 
 # Create a function for posterizing an image
 def posterize(image, levels=4):
-    img = ImageOps.posterize(image, levels)
-    return img
+    posterized_image = ImageOps.posterize(image, levels)
+    return posterized_image
 
 try:
     while True:
@@ -30,11 +29,11 @@ try:
         # Apply posterize effect
         posterized_image = posterize(image, levels=4)
 
+        # Resize the posterized image to fit the display
+        posterized_image = posterized_image.resize((240, 240), Image.ANTIALIAS)
+
         # Convert the posterized image to a numpy array
         posterized_np = np.array(posterized_image)
-
-        # Resize the numpy array to match the display size (240x240)
-        posterized_np = cv2.resize(posterized_np, (240, 240))
 
         # Display the posterized image on the Display-O-Tron HAT Mini
         disp.display(posterized_np)
